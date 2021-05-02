@@ -1,0 +1,3 @@
+include ':app'
+include ':form-renderer'
+rootProject.name = "form-renderer"
