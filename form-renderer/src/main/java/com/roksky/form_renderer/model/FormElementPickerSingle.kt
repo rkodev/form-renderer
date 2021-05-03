@@ -41,8 +41,3 @@ class FormElementPickerSingle : BaseFormElement<ElementValue<*>>() {
         }
     }
 }
-
-interface ElementValue<T> {
-    fun toDisplayValue(): String
-    fun value(): T
-}
