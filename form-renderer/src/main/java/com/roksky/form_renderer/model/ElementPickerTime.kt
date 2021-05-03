@@ -3,10 +3,7 @@ package com.roksky.form_renderer.model
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by Riddhi - Rudra on 28-Jul-17.
- */
-class FormElementPickerTime : BaseFormElement<String>() {
+class ElementPickerTime(id: String) : BaseElement<String>(TYPE_PICKER_TIME, id) {
     // custom getter
     var timeFormat : String? = null
         set(value) {
@@ -22,12 +19,7 @@ class FormElementPickerTime : BaseFormElement<String>() {
         }
     }
 
-    companion object {
-        fun createInstance(): FormElementPickerTime {
-            return FormElementPickerTime().apply {
-                type = TYPE_PICKER_TIME
-                timeFormat ="KK:mm a"
-            }
-        }
+    init {
+        timeFormat ="KK:mm a"
     }
 }

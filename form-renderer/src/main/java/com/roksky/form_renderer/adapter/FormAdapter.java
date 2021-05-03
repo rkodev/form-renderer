@@ -11,22 +11,22 @@ import com.roksky.form_renderer.R;
 import com.roksky.form_renderer.listener.FormItemEditTextListener;
 import com.roksky.form_renderer.listener.OnFormElementValueChangedListener;
 import com.roksky.form_renderer.listener.ReloadListener;
-import com.roksky.form_renderer.model.BaseFormElement;
+import com.roksky.form_renderer.model.BaseElement;
 import com.roksky.form_renderer.viewholder.BaseViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementHeader;
-import com.roksky.form_renderer.viewholder.FormElementLocationPickerViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementPickerDateViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementPickerMultiViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementPickerSingleViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementPickerTimeViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementRadioViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementSwitchViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementTextEmailViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementTextMultiLineViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementTextNumberViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementTextPasswordViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementTextPhoneViewHolder;
-import com.roksky.form_renderer.viewholder.FormElementTextSingleLineViewHolder;
+import com.roksky.form_renderer.viewholder.ElementHeaderViewHolder;
+import com.roksky.form_renderer.viewholder.ElementLocationPickerViewHolder;
+import com.roksky.form_renderer.viewholder.ElementPickerDateViewHolder;
+import com.roksky.form_renderer.viewholder.ElementPickerMultiViewHolder;
+import com.roksky.form_renderer.viewholder.ElementPickerSingleViewHolder;
+import com.roksky.form_renderer.viewholder.ElementPickerTimeViewHolder;
+import com.roksky.form_renderer.viewholder.ElementRadioViewHolder;
+import com.roksky.form_renderer.viewholder.ElementSwitchViewHolder;
+import com.roksky.form_renderer.viewholder.ElementTextEmailViewHolder;
+import com.roksky.form_renderer.viewholder.ElementTextMultiLineViewHolder;
+import com.roksky.form_renderer.viewholder.ElementTextNumberViewHolder;
+import com.roksky.form_renderer.viewholder.ElementTextPasswordViewHolder;
+import com.roksky.form_renderer.viewholder.ElementTextPhoneViewHolder;
+import com.roksky.form_renderer.viewholder.ElementTextSingleLineViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
 
     private final Activity mActivity;
     private final OnFormElementValueChangedListener mListener;
-    private List<BaseFormElement> mDataset;
+    private List<BaseElement> mDataset;
 
     /**
      * public constructor with context
@@ -53,7 +53,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
         mDataset = new ArrayList<>();
     }
 
-    public Integer getItemPosition(BaseFormElement element){
+    public Integer getItemPosition(BaseElement element){
         return mDataset.indexOf(element);
     }
 
@@ -62,7 +62,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      *
      * @param formObjects
      */
-    public void addElements(List<BaseFormElement> formObjects) {
+    public void addElements(List<BaseElement> formObjects) {
         this.mDataset = formObjects;
         notifyDataSetChanged();
     }
@@ -72,7 +72,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      *
      * @param formObject
      */
-    public void addElement(BaseFormElement formObject) {
+    public void addElement(BaseElement formObject) {
         this.mDataset.add(formObject);
         notifyDataSetChanged();
     }
@@ -84,8 +84,8 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      * @param value
      */
     public void setValueAtIndex(int position, String value) {
-        BaseFormElement baseFormElement = mDataset.get(position);
-        baseFormElement.setValue(value);
+        BaseElement baseElement = mDataset.get(position);
+        baseElement.setValue(value);
         notifyDataSetChanged();
     }
 
@@ -96,7 +96,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      * @param value
      */
     public void setValueAtTag(int tag, String value) {
-        for (BaseFormElement f : this.mDataset) {
+        for (BaseElement f : this.mDataset) {
             if (f.getTag() == tag) {
                 f.setValue(value);
                 return;
@@ -111,7 +111,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      * @param index
      * @return
      */
-    public BaseFormElement getValueAtIndex(int index) {
+    public BaseElement getValueAtIndex(int index) {
         return (mDataset.get(index));
     }
 
@@ -121,8 +121,8 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      * @param tag
      * @return
      */
-    public BaseFormElement getValueAtTag(int tag) {
-        for (BaseFormElement f : this.mDataset) {
+    public BaseElement getValueAtTag(int tag) {
+        for (BaseElement f : this.mDataset) {
             if (f.getTag() == tag) {
                 return f;
             }
@@ -137,8 +137,8 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      * @param id
      * @return
      */
-    public BaseFormElement getValueAtId(String id) {
-        for (BaseFormElement f : this.mDataset) {
+    public BaseElement getValueAtId(String id) {
+        for (BaseElement f : this.mDataset) {
             if (f.getId() != null && f.getId().equals(id)) {
                 return f;
             }
@@ -152,7 +152,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
      *
      * @return
      */
-    public List<BaseFormElement> getDataset() {
+    public List<BaseElement> getDataset() {
         return mDataset;
     }
 
@@ -200,51 +200,51 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v;
         switch (viewType) {
-            case BaseFormElement.TYPE_HEADER:
+            case BaseElement.TYPE_HEADER:
                 v = inflater.inflate(R.layout.form_element_header, parent, false);
-                return new FormElementHeader(v);
-            case BaseFormElement.TYPE_EDITTEXT_TEXT_SINGLELINE:
+                return new ElementHeaderViewHolder(v);
+            case BaseElement.TYPE_EDITTEXT_TEXT_SINGLELINE:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementTextSingleLineViewHolder(v, new FormItemEditTextListener(this));
-            case BaseFormElement.TYPE_EDITTEXT_TEXT_MULTILINE:
+                return new ElementTextSingleLineViewHolder(v, new FormItemEditTextListener(this));
+            case BaseElement.TYPE_EDITTEXT_TEXT_MULTILINE:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementTextMultiLineViewHolder(v, new FormItemEditTextListener(this));
-            case BaseFormElement.TYPE_EDITTEXT_NUMBER:
+                return new ElementTextMultiLineViewHolder(v, new FormItemEditTextListener(this));
+            case BaseElement.TYPE_EDITTEXT_NUMBER:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementTextNumberViewHolder(v, new FormItemEditTextListener(this));
-            case BaseFormElement.TYPE_EDITTEXT_EMAIL:
+                return new ElementTextNumberViewHolder(v, new FormItemEditTextListener(this));
+            case BaseElement.TYPE_EDITTEXT_EMAIL:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementTextEmailViewHolder(v, new FormItemEditTextListener(this));
-            case BaseFormElement.TYPE_EDITTEXT_PHONE:
+                return new ElementTextEmailViewHolder(v, new FormItemEditTextListener(this));
+            case BaseElement.TYPE_EDITTEXT_PHONE:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementTextPhoneViewHolder(v, new FormItemEditTextListener(this));
-            case BaseFormElement.TYPE_EDITTEXT_PASSWORD:
+                return new ElementTextPhoneViewHolder(v, new FormItemEditTextListener(this));
+            case BaseElement.TYPE_EDITTEXT_PASSWORD:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementTextPasswordViewHolder(v, new FormItemEditTextListener(this));
-            case BaseFormElement.TYPE_PICKER_DATE:
+                return new ElementTextPasswordViewHolder(v, new FormItemEditTextListener(this));
+            case BaseElement.TYPE_PICKER_DATE:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementPickerDateViewHolder(v, mActivity, this);
-            case BaseFormElement.TYPE_PICKER_TIME:
+                return new ElementPickerDateViewHolder(v, mActivity, this);
+            case BaseElement.TYPE_PICKER_TIME:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementPickerTimeViewHolder(v, mActivity, this);
-            case BaseFormElement.TYPE_PICKER_SINGLE:
+                return new ElementPickerTimeViewHolder(v, mActivity, this);
+            case BaseElement.TYPE_PICKER_SINGLE:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementPickerSingleViewHolder(v, mActivity, this);
-            case BaseFormElement.TYPE_PICKER_MULTI:
+                return new ElementPickerSingleViewHolder(v, mActivity, this);
+            case BaseElement.TYPE_PICKER_MULTI:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementPickerMultiViewHolder(v, mActivity, this);
-            case BaseFormElement.TYPE_SWITCH:
+                return new ElementPickerMultiViewHolder(v, mActivity, this);
+            case BaseElement.TYPE_SWITCH:
                 v = inflater.inflate(R.layout.form_element_switch, parent, false);
-                return new FormElementSwitchViewHolder(v, mActivity, this);
-            case BaseFormElement.TYPE_LOCATION:
+                return new ElementSwitchViewHolder(v, mActivity, this);
+            case BaseElement.TYPE_LOCATION:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementLocationPickerViewHolder(v, mActivity, this);
-            case BaseFormElement.TYPE_RADIO:
+                return new ElementLocationPickerViewHolder(v, mActivity, this);
+            case BaseElement.TYPE_RADIO:
                 v = inflater.inflate(R.layout.form_element_radio, parent, false);
-                return new FormElementRadioViewHolder(v, mActivity, this);
+                return new ElementRadioViewHolder(v, mActivity, this);
             default:
                 v = inflater.inflate(R.layout.form_element, parent, false);
-                return new FormElementTextSingleLineViewHolder(v, new FormItemEditTextListener(this));
+                return new ElementTextSingleLineViewHolder(v, new FormItemEditTextListener(this));
         }
     }
 
@@ -263,7 +263,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
         }
 
         // gets current object
-        BaseFormElement currentObject = mDataset.get(position);
+        BaseElement currentObject = mDataset.get(position);
         holder.bind(position, currentObject, mActivity);
     }
 

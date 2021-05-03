@@ -1,31 +1,11 @@
 package com.roksky.form_renderer.model
 
-/**
- * Created by Adib on 16-Apr-17.
- */
-open class BaseFormElement<T> {
-    // getters
-    // private variables
-
-    // unique tag to identify the object
-    var id : String? = null
-
-    // unique tag to identify the object
+open class BaseElement<T>(val type: Int, val id: String) {
     var tag = 0
-
-    // type for the form element
-    var type = 0
-
-    // title to be shown on left
     var title : String? = null
-
-    // value to set is the field is required
     var isRequired = false
-
     var value: T? = null
-
     var hint: String = ""
-
     var readOnly: Boolean = false
 
     override fun toString(): String {

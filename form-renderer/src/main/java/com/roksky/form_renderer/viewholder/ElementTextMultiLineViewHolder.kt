@@ -8,12 +8,12 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import com.roksky.form_renderer.R
 import com.roksky.form_renderer.listener.FormItemEditTextListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 
 /**
  * Created by Riddhi - Rudra on 30-Jul-17.
  */
-class FormElementTextNumberViewHolder(v: View, listener: FormItemEditTextListener) :
+class ElementTextMultiLineViewHolder(v: View, listener: FormItemEditTextListener) :
     BaseViewHolder<String>(v) {
     var mTextViewTitle: AppCompatTextView = v.findViewById(R.id.formElementTitle)
     var mEditTextValue: AppCompatEditText = v.findViewById(R.id.formElementValue)
@@ -23,24 +23,26 @@ class FormElementTextNumberViewHolder(v: View, listener: FormItemEditTextListene
         return mFormCustomEditTextListener
     }
 
-    override fun bind(position: Int, formElement: BaseFormElement<String>, context: Context?) {
-        mTextViewTitle.text = formElement!!.title
-        mEditTextValue.setText(formElement.value)
-        mEditTextValue.hint = formElement.hint
+    override fun bind(position: Int, element: BaseElement<String>, context: Context?) {
+        mTextViewTitle.text = element.title
+        mEditTextValue.setText(element.value)
+        mEditTextValue.hint = element.hint
         itemView.setOnClickListener {
             mEditTextValue.requestFocus()
             val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(mEditTextValue, InputMethodManager.SHOW_IMPLICIT)
         }
 
-        if(formElement.readOnly)
+        if(element.readOnly)
             mEditTextValue.isEnabled = false
 
-        if(formElement.isRequired) mTextViewTitle.markRequired()
+        if(element.isRequired) mTextViewTitle.markRequired()
     }
 
     init {
         mEditTextValue.addTextChangedListener(mFormCustomEditTextListener)
-        mEditTextValue.setRawInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+        mEditTextValue.maxLines = 4
+        mEditTextValue.isSingleLine = false
+        mEditTextValue.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
     }
 }

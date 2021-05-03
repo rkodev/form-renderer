@@ -8,10 +8,10 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.util.Consumer
 import com.roksky.form_renderer.R
 import com.roksky.form_renderer.listener.ReloadListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 
 
-class FormElementLocationPickerViewHolder(
+class ElementLocationPickerViewHolder(
     v: View,
     val activity: Activity,
     reloadListener: ReloadListener
@@ -22,19 +22,19 @@ class FormElementLocationPickerViewHolder(
     private val mReloadListener: ReloadListener = reloadListener
     private var mPosition = 0
 
-    override fun bind(position: Int, formElement: BaseFormElement<GpsLocation>, context: Context?) {
+    override fun bind(position: Int, element: BaseElement<GpsLocation>, context: Context?) {
         mPosition = position
 
-        mTextViewTitle.text = formElement!!.title
+        mTextViewTitle.text = element!!.title
 
-        if(formElement.value != null){
+        if(element.value != null){
             val locStr =
-                "Lat : " + formElement.value!!.getLatitude()
-                    .toString() + " , Lon : " + formElement.value!!.getLatitude().toString()
+                "Lat : " + element.value!!.getLatitude()
+                    .toString() + " , Lon : " + element.value!!.getLatitude().toString()
 
             mEditTextValue.setText(locStr)
         }
-        mEditTextValue.hint = formElement.hint
+        mEditTextValue.hint = element.hint
         mEditTextValue.isFocusableInTouchMode = false
 
         val consumer = Consumer<GpsLocation> { location ->
@@ -42,11 +42,11 @@ class FormElementLocationPickerViewHolder(
                 "Lat : " + location.getLatitude()
                     .toString() + " , Lon : " + location.getLatitude().toString()
 
-            if (formElement.value != location)
+            if (element.value != location)
                 mReloadListener.updateValue(mPosition, location)
 
             mEditTextValue.setText(locStr)
-            formElement.value = location
+            element.value = location
         }
 
         val dialog = GpsDialog(
@@ -56,10 +56,10 @@ class FormElementLocationPickerViewHolder(
 
         mEditTextValue.setOnClickListener { dialog.show() }
 
-        if(formElement.readOnly)
+        if(element.readOnly)
             mEditTextValue.isEnabled = false
 
-        if (formElement.isRequired) mTextViewTitle.markRequired()
+        if (element.isRequired) mTextViewTitle.markRequired()
     }
 
 }

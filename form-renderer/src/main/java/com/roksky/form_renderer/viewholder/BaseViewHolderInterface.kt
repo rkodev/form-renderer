@@ -2,7 +2,7 @@ package com.roksky.form_renderer.viewholder
 
 import android.content.Context
 import com.roksky.form_renderer.listener.FormItemEditTextListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 
 /**
  * Base ViewHolder method instance
@@ -10,5 +10,5 @@ import com.roksky.form_renderer.model.BaseFormElement
  */
 interface BaseViewHolderInterface<T> {
     fun getListener(): FormItemEditTextListener?
-    fun bind(position: Int, formElement: BaseFormElement<T>, context: Context?)
+    fun bind(position: Int, element: BaseElement<T>, context: Context?)
 }

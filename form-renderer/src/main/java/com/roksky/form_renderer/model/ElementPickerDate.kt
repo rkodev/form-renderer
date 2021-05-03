@@ -3,10 +3,7 @@ package com.roksky.form_renderer.model
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by Riddhi - Rudra on 28-Jul-17.
- */
-class FormElementPickerDate : BaseFormElement<String>() {
+class ElementPickerDate(id: String) : BaseElement<String>(TYPE_PICKER_DATE, id) {
     // custom getter
     var dateFormat: String? = null
         set(value) {
@@ -22,12 +19,7 @@ class FormElementPickerDate : BaseFormElement<String>() {
         }
     }
 
-    companion object {
-        fun createInstance(): FormElementPickerDate {
-            return FormElementPickerDate().apply {
-                type = TYPE_PICKER_DATE
-                dateFormat = "dd/MM/yy"
-            }
-        }
+    init {
+        dateFormat = "dd/MM/yy"
     }
 }

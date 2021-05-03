@@ -7,11 +7,11 @@ import android.widget.RadioGroup
 import androidx.appcompat.widget.AppCompatTextView
 import com.roksky.form_renderer.R
 import com.roksky.form_renderer.listener.ReloadListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 import com.roksky.form_renderer.model.ElementValue
-import com.roksky.form_renderer.model.FormElementRadio
+import com.roksky.form_renderer.model.ElementRadio
 
-class FormElementRadioViewHolder(
+class ElementRadioViewHolder(
     v: View,
     context: Context?,
     reloadListener: ReloadListener
@@ -19,39 +19,39 @@ class FormElementRadioViewHolder(
     private val mTextViewTitle: AppCompatTextView = v.findViewById(R.id.formElementTitle)
     private val radioGroup: RadioGroup = v.findViewById(R.id.radio_group)
     private val mReloadListener: ReloadListener = reloadListener
-    private lateinit var mFormElementPickerSingle: FormElementRadio
+    private lateinit var mFormElementPickerSingle: ElementRadio
     private var mPosition = 0
 
     override fun bind(
         position: Int,
-        formElement: BaseFormElement<ElementValue<*>>,
+        element: BaseElement<ElementValue<*>>,
         context: Context?
     ) {
         mPosition = position
-        mFormElementPickerSingle = formElement as FormElementRadio
-        mTextViewTitle.text = formElement.title
+        mFormElementPickerSingle = element as ElementRadio
+        mTextViewTitle.text = element.title
 
         // remove all elements
         radioGroup.removeAllViews()
 
         // add all elements
-        for (element in mFormElementPickerSingle.options) {
+        for (optionElement in mFormElementPickerSingle.options) {
             val radioBtn = RadioButton(radioGroup.context)
-            radioBtn.text = element.toDisplayValue()
+            radioBtn.text = optionElement.toDisplayValue()
             radioBtn.setOnClickListener {
-                mFormElementPickerSingle.value = element
-                mReloadListener.updateValue(position, element)
+                mFormElementPickerSingle.value = optionElement
+                mReloadListener.updateValue(position, optionElement)
             }
 
-            if(formElement.value?.toDisplayValue().equals(element.toDisplayValue()))
+            if(element.value?.toDisplayValue().equals(optionElement.toDisplayValue()))
                 radioBtn.isChecked = true
 
             radioGroup.addView(radioBtn)
         }
 
-        if(formElement.readOnly)
+        if(element.readOnly)
             radioGroup.isEnabled = false
 
-        if (formElement.isRequired) mTextViewTitle.markRequired()
+        if (element.isRequired) mTextViewTitle.markRequired()
     }
 }

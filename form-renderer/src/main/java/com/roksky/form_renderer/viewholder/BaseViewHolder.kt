@@ -8,7 +8,7 @@ import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.roksky.form_renderer.listener.FormItemEditTextListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 
 /**
  * Base ViewHolder for all other viewholders
@@ -21,7 +21,7 @@ open class BaseViewHolder<T>(itemView: View?) : RecyclerView.ViewHolder(
         return null
     }
 
-    override fun bind(position: Int, formElement: BaseFormElement<T>, context: Context?) {}
+    override fun bind(position: Int, element: BaseElement<T>, context: Context?) {}
 
     fun AppCompatTextView.markRequired() {
         text = buildSpannedString {
