@@ -3,7 +3,7 @@ package com.roksky.form_renderer.model
 import androidx.arch.core.util.Function
 import java.util.*
 
-class ElementPickerSingle : BaseElement<ElementValue<*>>(TYPE_PICKER_SINGLE) {
+class ElementPickerSingle(id: String) : BaseElement<ElementValue<*>>(TYPE_PICKER_SINGLE, id) {
     var pickerTitle: String? = null
     var options: List<ElementValue<*>> = ArrayList()
     var optionsSelected: List<ElementValue<*>> = ArrayList()

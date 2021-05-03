@@ -3,7 +3,7 @@ package com.roksky.form_renderer.model
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ElementPickerTime : BaseElement<String>(TYPE_PICKER_TIME) {
+class ElementPickerTime(id: String) : BaseElement<String>(TYPE_PICKER_TIME, id) {
     // custom getter
     var timeFormat : String? = null
         set(value) {

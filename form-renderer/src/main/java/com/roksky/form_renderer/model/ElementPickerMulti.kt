@@ -2,7 +2,7 @@ package com.roksky.form_renderer.model
 
 import java.util.*
 
-class ElementPickerMulti : BaseElement<String>(TYPE_PICKER_MULTI) {
+class ElementPickerMulti(id: String) : BaseElement<String>(TYPE_PICKER_MULTI, id) {
 
     var pickerTitle: String? = null
     var options: List<String> = ArrayList()

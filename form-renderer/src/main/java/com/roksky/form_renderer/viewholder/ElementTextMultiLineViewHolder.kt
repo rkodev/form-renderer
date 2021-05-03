@@ -24,7 +24,7 @@ class ElementTextMultiLineViewHolder(v: View, listener: FormItemEditTextListener
     }
 
     override fun bind(position: Int, element: BaseElement<String>, context: Context?) {
-        mTextViewTitle.text = element!!.title
+        mTextViewTitle.text = element.title
         mEditTextValue.setText(element.value)
         mEditTextValue.hint = element.hint
         itemView.setOnClickListener {

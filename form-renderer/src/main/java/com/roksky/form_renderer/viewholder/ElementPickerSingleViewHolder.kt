@@ -28,7 +28,7 @@ class ElementPickerSingleViewHolder(
     override fun bind(position: Int, element: BaseElement<ElementValue<*>>, context: Context?) {
         mPosition = position
         mFormElementPickerSingle = element as ElementPickerSingle
-        mTextViewTitle.text = element!!.title
+        mTextViewTitle.text = element.title
         mEditTextValue.setText(element.value?.toDisplayValue())
         mEditTextValue.hint = element.hint
         mEditTextValue.isFocusableInTouchMode = false

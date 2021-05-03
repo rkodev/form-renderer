@@ -1,3 +1,5 @@
 package com.roksky.form_renderer.model
 
-class Header : BaseElement<String>(TYPE_HEADER)
+import java.util.*
+
+class Header(id: String = UUID.randomUUID().toString()) : BaseElement<String>(TYPE_HEADER, id)

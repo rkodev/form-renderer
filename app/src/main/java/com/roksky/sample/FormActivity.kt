@@ -26,27 +26,26 @@ class FormActivity : AppCompatActivity() {
         formBuilder = FormBuilder(this@FormActivity, mRecyclerView)
         formBuilder.addFormElements(
             listOf(
-                ElementPickerSingle().apply {
-                    id = "select_area"
+                ElementPickerSingle("select_area").apply {
                     title = "Select Area"
                     hint = "Select Area"
                     options = listOf(
-                        ClientArea().apply {
-                            name = "East Africa"
+                        ClientArea(
+                            name = "East Africa",
                             id = "East Africa"
-                        },
-                        ClientArea().apply {
-                            name = "West Africa"
+                        ),
+                        ClientArea(
+                            name = "West Africa",
                             id = "West Africa"
-                        },
-                        ClientArea().apply {
-                            name = "North Africa"
+                        ),
+                        ClientArea(
+                            name = "North Africa",
                             id = "North Africa"
-                        },
-                        ClientArea().apply {
-                            name = "South Africa"
+                        ),
+                        ClientArea(
+                            name = "South Africa",
                             id = "South Africa"
-                        }
+                        )
                     ).map { area ->
                         object : ElementValue<ClientArea> {
                             override fun toDisplayValue(): String {
@@ -61,32 +60,27 @@ class FormActivity : AppCompatActivity() {
                     }
                     isRequired = true
                 },
-                ElementLocationPicker().apply {
-                    id = "select_location"
+                ElementLocationPicker("select_location").apply {
                     title = "Select Location"
                     hint = "Customer Location"
                 },
-                ElementTextSingleLine().apply {
-                    id = "select_bags"
+                ElementTextSingleLine("select_bags").apply {
                     title = "Bags to issue"
                     hint = "Bags to issue"
                     isRequired = true
                 },
-                ElementRadio().apply {
-                    id = "select_bags_type"
+                ElementRadio("select_bags_type").apply {
                     title = "Bags Type Issued"
                     hint = "Bags Type Issued"
                     options = composeOptions(listOf("Large", "Small"))
                     isRequired = true
                 },
-                ElementTextNumber().apply {
-                    id = "occupied_units"
+                ElementTextNumber("occupied_units").apply {
                     title = "Number of occupied Units"
                     hint = "Number of occupied Units"
                     isRequired = true
                 },
-                ElementTextNumber().apply {
-                    id = "issued_bags"
+                ElementTextNumber("issued_bags").apply {
                     title = "Number of issued bags"
                     hint = "Number of issued bags"
                     isRequired = true

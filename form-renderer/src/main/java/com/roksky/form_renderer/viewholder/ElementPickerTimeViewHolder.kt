@@ -45,7 +45,7 @@ class ElementPickerTimeViewHolder(v: View, context: Context?, reloadListener: Re
 
     override fun bind(position: Int, element: BaseElement<String>, context: Context?) {
         mPosition = position
-        mTextViewTitle.text = element!!.title
+        mTextViewTitle.text = element.title
         mEditTextValue.setText(element.value)
         mEditTextValue.hint = element.hint
         mEditTextValue.isFocusableInTouchMode = false

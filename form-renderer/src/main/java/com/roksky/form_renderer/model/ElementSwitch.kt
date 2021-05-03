@@ -1,6 +1,6 @@
 package com.roksky.form_renderer.model
 
-class ElementSwitch : BaseElement<String>(TYPE_SWITCH) {
+class ElementSwitch(id: String) : BaseElement<String>(TYPE_SWITCH, id) {
 
     var positiveText: String? = null
     var negativeText: String? = null

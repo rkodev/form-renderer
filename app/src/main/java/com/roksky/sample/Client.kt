@@ -2,15 +2,15 @@ package com.roksky.sample
 
 import java.util.*
 
-class Client {
-    var id: String? = null
-    var name: String? = null
-    var area: String? = null
-    var allocatedBags: Int? = null
-    var bagType: String? = null
-    var extraBags: Int? = null
-    var status: Int? = null
-    var latitude: String? = null
-    var longitude: String? = null
-    var dateUpdate: Date? = null
-}
+data class Client(
+    var id: String?,
+    var name: String?,
+    var area: String?,
+    var allocatedBags: Int?,
+    var bagType: String?,
+    var extraBags: Int?,
+    var status: Int?,
+    var latitude: String?,
+    var longitude: String?,
+    var dateUpdate: Date?
+)

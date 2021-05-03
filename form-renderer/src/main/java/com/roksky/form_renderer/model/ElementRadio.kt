@@ -2,7 +2,7 @@ package com.roksky.form_renderer.model
 
 import java.util.*
 
-class ElementRadio : BaseElement<ElementValue<*>>(TYPE_RADIO) {
+class ElementRadio(id: String) : BaseElement<ElementValue<*>>(TYPE_RADIO, id) {
     var pickerTitle: String? = null
     var options: List<ElementValue<*>> = ArrayList()
     var optionsSelected: List<ElementValue<*>> = ArrayList()

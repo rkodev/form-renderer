@@ -36,10 +36,10 @@ class ElementSwitchViewHolder(v: View, context: Context?, reloadListener: Reload
             )
         }
 
-        if(element!!.readOnly)
+        if(element.readOnly)
             mSwitch.isEnabled = false
 
-        if(element!!.isRequired) mTextViewTitle.markRequired()
+        if(element.isRequired) mTextViewTitle.markRequired()
     }
 
 }
