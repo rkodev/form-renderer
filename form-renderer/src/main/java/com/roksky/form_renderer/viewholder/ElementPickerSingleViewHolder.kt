@@ -7,14 +7,14 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import com.roksky.form_renderer.R
 import com.roksky.form_renderer.listener.ReloadListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 import com.roksky.form_renderer.model.ElementValue
-import com.roksky.form_renderer.model.FormElementPickerSingle
+import com.roksky.form_renderer.model.ElementPickerSingle
 
 /**
  * Created by Riddhi - Rudra on 30-Jul-17.
  */
-class FormElementPickerSingleViewHolder(
+class ElementPickerSingleViewHolder(
     v: View,
     context: Context?,
     reloadListener: ReloadListener
@@ -22,15 +22,15 @@ class FormElementPickerSingleViewHolder(
     private val mTextViewTitle: AppCompatTextView = v.findViewById(R.id.formElementTitle)
     private val mEditTextValue: AppCompatEditText = v.findViewById(R.id.formElementValue)
     private val mReloadListener: ReloadListener = reloadListener
-    private lateinit var mFormElementPickerSingle: FormElementPickerSingle
+    private lateinit var mFormElementPickerSingle: ElementPickerSingle
     private var mPosition = 0
 
-    override fun bind(position: Int, formElement: BaseFormElement<ElementValue<*>>, context: Context?) {
+    override fun bind(position: Int, element: BaseElement<ElementValue<*>>, context: Context?) {
         mPosition = position
-        mFormElementPickerSingle = formElement as FormElementPickerSingle
-        mTextViewTitle.text = formElement!!.title
-        mEditTextValue.setText(formElement.value?.toDisplayValue())
-        mEditTextValue.hint = formElement.hint
+        mFormElementPickerSingle = element as ElementPickerSingle
+        mTextViewTitle.text = element!!.title
+        mEditTextValue.setText(element.value?.toDisplayValue())
+        mEditTextValue.hint = element.hint
         mEditTextValue.isFocusableInTouchMode = false
 
         // reformat the options in format needed
@@ -52,10 +52,10 @@ class FormElementPickerSingleViewHolder(
         mEditTextValue.setOnClickListener { dialog.show() }
         mTextViewTitle.setOnClickListener { dialog.show() }
 
-        if(formElement.readOnly)
+        if(element.readOnly)
             mEditTextValue.isEnabled = false
 
-        if(formElement.isRequired) mTextViewTitle.markRequired()
+        if(element.isRequired) mTextViewTitle.markRequired()
     }
 
 }

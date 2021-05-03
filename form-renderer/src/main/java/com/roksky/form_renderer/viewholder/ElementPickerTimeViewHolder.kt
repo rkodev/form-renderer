@@ -8,22 +8,22 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import com.roksky.form_renderer.R
 import com.roksky.form_renderer.listener.ReloadListener
-import com.roksky.form_renderer.model.BaseFormElement
-import com.roksky.form_renderer.model.FormElementPickerTime
+import com.roksky.form_renderer.model.BaseElement
+import com.roksky.form_renderer.model.ElementPickerTime
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by Riddhi - Rudra on 30-Jul-17.
  */
-class FormElementPickerTimeViewHolder(v: View, context: Context?, reloadListener: ReloadListener) :
+class ElementPickerTimeViewHolder(v: View, context: Context?, reloadListener: ReloadListener) :
     BaseViewHolder<String>(v) {
     private var mTextViewTitle: AppCompatTextView = v.findViewById(R.id.formElementTitle)
     private var mEditTextValue: AppCompatEditText = v.findViewById(R.id.formElementValue)
     private var mTimePickerDialog: TimePickerDialog
     private var mCalendarCurrentTime: Calendar = Calendar.getInstance()
     private var mReloadListener: ReloadListener = reloadListener
-    private var mFormElement: BaseFormElement<String>? = null
+    private var mElement: BaseElement<String>? = null
     private var mPosition = 0
 
     /**
@@ -32,9 +32,9 @@ class FormElementPickerTimeViewHolder(v: View, context: Context?, reloadListener
     var time = OnTimeSetListener { view, hourOfDay, minute ->
         mCalendarCurrentTime[Calendar.HOUR_OF_DAY] = hourOfDay
         mCalendarCurrentTime[Calendar.MINUTE] = minute
-        val myFormatTime = (mFormElement as FormElementPickerTime?)!!.timeFormat // custom format
+        val myFormatTime = (mElement as ElementPickerTime?)!!.timeFormat // custom format
         val sdfTime = SimpleDateFormat(myFormatTime, Locale.US)
-        val currentValue = mFormElement!!.value
+        val currentValue = mElement!!.value
         val newValue = sdfTime.format(mCalendarCurrentTime.time)
 
         // trigger event only if the value is changed
@@ -43,19 +43,19 @@ class FormElementPickerTimeViewHolder(v: View, context: Context?, reloadListener
         }
     }
 
-    override fun bind(position: Int, formElement: BaseFormElement<String>, context: Context?) {
+    override fun bind(position: Int, element: BaseElement<String>, context: Context?) {
         mPosition = position
-        mTextViewTitle.text = formElement!!.title
-        mEditTextValue.setText(formElement.value)
-        mEditTextValue.hint = formElement.hint
+        mTextViewTitle.text = element!!.title
+        mEditTextValue.setText(element.value)
+        mEditTextValue.hint = element.hint
         mEditTextValue.isFocusableInTouchMode = false
         mEditTextValue.setOnClickListener { mTimePickerDialog.show() }
         mTextViewTitle.setOnClickListener { mTimePickerDialog.show() }
 
-        if(formElement.readOnly)
+        if(element.readOnly)
             mEditTextValue.isEnabled = false
 
-        if(formElement.isRequired) mTextViewTitle.markRequired()
+        if(element.isRequired) mTextViewTitle.markRequired()
     }
 
     init {

@@ -7,30 +7,30 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import com.roksky.form_renderer.R
 import com.roksky.form_renderer.listener.ReloadListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 import com.roksky.form_renderer.model.ElementValue
-import com.roksky.form_renderer.model.FormElementPickerMulti
+import com.roksky.form_renderer.model.ElementPickerMulti
 import java.util.*
 
 /**
  * Created by Riddhi - Rudra on 30-Jul-17.
  */
-class FormElementPickerMultiViewHolder(v: View, context: Context?, reloadListener: ReloadListener) :
+class ElementPickerMultiViewHolder(v: View, context: Context?, reloadListener: ReloadListener) :
     BaseViewHolder<ElementValue<*>>(v) {
     private val mTextViewTitle: AppCompatTextView = v.findViewById(R.id.formElementTitle)
     private val mEditTextValue: AppCompatEditText = v.findViewById(R.id.formElementValue)
     private val mReloadListener: ReloadListener = reloadListener
 
-    private var mFormElement: BaseFormElement<String>? = null
-    private var mFormElementPickerMulti: FormElementPickerMulti? = null
+    private var mElement: BaseElement<String>? = null
+    private var mFormElementPickerMulti: ElementPickerMulti? = null
     private var mPosition = 0
 
-    override fun bind(position: Int, formElement: BaseFormElement<ElementValue<*>>, context: Context?) {
+    override fun bind(position: Int, element: BaseElement<ElementValue<*>>, context: Context?) {
         mPosition = position
-        mFormElementPickerMulti = mFormElement as FormElementPickerMulti?
-        mTextViewTitle.text = formElement!!.title
-        mEditTextValue.setText(formElement.value?.toDisplayValue())
-        mEditTextValue.hint = formElement.hint
+        mFormElementPickerMulti = mElement as ElementPickerMulti?
+        mTextViewTitle.text = element!!.title
+        mEditTextValue.setText(element.value?.toDisplayValue())
+        mEditTextValue.hint = element.hint
         mEditTextValue.isFocusableInTouchMode = false
 
         // reformat the options in format needed
@@ -80,10 +80,10 @@ class FormElementPickerMultiViewHolder(v: View, context: Context?, reloadListene
         mEditTextValue.setOnClickListener { dialog.show() }
         mTextViewTitle.setOnClickListener { dialog.show() }
 
-        if(formElement.readOnly)
+        if(element.readOnly)
             mEditTextValue.isEnabled = false
 
-        if(formElement.isRequired) mTextViewTitle.markRequired()
+        if(element.isRequired) mTextViewTitle.markRequired()
     }
 
 }

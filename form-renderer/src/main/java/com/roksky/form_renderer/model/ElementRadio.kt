@@ -2,7 +2,7 @@ package com.roksky.form_renderer.model
 
 import java.util.*
 
-class FormElementRadio : BaseFormElement<ElementValue<*>>() {
+class ElementRadio : BaseElement<ElementValue<*>>(TYPE_RADIO) {
     var pickerTitle: String? = null
     var options: List<ElementValue<*>> = ArrayList()
     var optionsSelected: List<ElementValue<*>> = ArrayList()
@@ -22,12 +22,8 @@ class FormElementRadio : BaseFormElement<ElementValue<*>>() {
         }
     }
 
-    companion object {
-        fun createInstance(): FormElementRadio {
-            return FormElementRadio().apply {
-                type = TYPE_RADIO
-                pickerTitle = "Pick one"
-            }
-        }
+    init {
+        pickerTitle = "Pick one"
     }
+
 }

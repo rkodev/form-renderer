@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.roksky.form_renderer.adapter.FormAdapter
 import com.roksky.form_renderer.listener.OnFormElementValueChangedListener
-import com.roksky.form_renderer.model.BaseFormElement
+import com.roksky.form_renderer.model.BaseElement
 import java.lang.IllegalArgumentException
 
 /**
@@ -21,13 +21,13 @@ class FormBuilder {
     }
 
 
-    fun <T> getItemPosition(element: BaseFormElement<T>): Int {
+    fun <T> getItemPosition(element: BaseElement<T>): Int {
         return mFormAdapter.getItemPosition(element)
     }
 
     fun <T> setElementValue(elementId: String, value: T) {
         val element =
-            getFormElement<BaseFormElement<T>>(
+            getFormElement<BaseElement<T>>(
                 elementId
             )
 
@@ -36,12 +36,12 @@ class FormBuilder {
     }
 
     fun <T> getElementValue(elementId: String): T? {
-        return getFormElement<BaseFormElement<T>>(
+        return getFormElement<BaseElement<T>>(
             elementId
         ).value
     }
 
-    inline fun <reified T> getElementValue(element: BaseFormElement<*>): T? {
+    inline fun <reified T> getElementValue(element: BaseElement<*>): T? {
         return if(element.value == null || element.value is T?) element.value as T? else throw IllegalArgumentException("Value is not of type")
     }
 
@@ -97,10 +97,10 @@ class FormBuilder {
     /**
      * add list of form elements to be shown
      *
-     * @param baseFormElements
+     * @param baseElements
      */
-    fun addFormElements(baseFormElements: List<BaseFormElement<*>?>?) {
-        mFormAdapter.addElements(baseFormElements)
+    fun addFormElements(baseElements: List<BaseElement<*>?>?) {
+        mFormAdapter.addElements(baseElements)
     }
 
     /**
@@ -109,7 +109,7 @@ class FormBuilder {
      * @param tag
      * @return
      */
-    fun getFormElement(tag: Int): BaseFormElement<*> {
+    fun getFormElement(tag: Int): BaseElement<*> {
         return mFormAdapter.getValueAtTag(tag)
     }
 
@@ -119,7 +119,7 @@ class FormBuilder {
      * @param tag
      * @return
      */
-    fun <T : BaseFormElement<*>> getFormElement(id: String): T {
+    fun <T : BaseElement<*>> getFormElement(id: String): T {
         return mFormAdapter.getValueAtId(id) as T
     }
 

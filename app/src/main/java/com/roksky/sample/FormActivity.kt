@@ -26,7 +26,7 @@ class FormActivity : AppCompatActivity() {
         formBuilder = FormBuilder(this@FormActivity, mRecyclerView)
         formBuilder.addFormElements(
             listOf(
-                FormElementPickerSingle.createInstance().apply {
+                ElementPickerSingle().apply {
                     id = "select_area"
                     title = "Select Area"
                     hint = "Select Area"
@@ -61,31 +61,31 @@ class FormActivity : AppCompatActivity() {
                     }
                     isRequired = true
                 },
-                FormElementLocationPicker.createInstance().apply {
+                ElementLocationPicker().apply {
                     id = "select_location"
                     title = "Select Location"
                     hint = "Customer Location"
                 },
-                FormElementTextSingleLine.createInstance().apply {
+                ElementTextSingleLine().apply {
                     id = "select_bags"
                     title = "Bags to issue"
                     hint = "Bags to issue"
                     isRequired = true
                 },
-                FormElementRadio.createInstance().apply {
+                ElementRadio().apply {
                     id = "select_bags_type"
                     title = "Bags Type Issued"
                     hint = "Bags Type Issued"
                     options = composeOptions(listOf("Large", "Small"))
                     isRequired = true
                 },
-                FormElementTextNumber.createInstance().apply {
+                ElementTextNumber().apply {
                     id = "occupied_units"
                     title = "Number of occupied Units"
                     hint = "Number of occupied Units"
                     isRequired = true
                 },
-                FormElementTextNumber.createInstance().apply {
+                ElementTextNumber().apply {
                     id = "issued_bags"
                     title = "Number of issued bags"
                     hint = "Number of issued bags"

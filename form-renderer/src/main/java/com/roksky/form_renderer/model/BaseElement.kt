@@ -3,7 +3,7 @@ package com.roksky.form_renderer.model
 /**
  * Created by Adib on 16-Apr-17.
  */
-open class BaseFormElement<T> {
+open class BaseElement<T>(val type: Int) {
     // getters
     // private variables
 
@@ -12,9 +12,6 @@ open class BaseFormElement<T> {
 
     // unique tag to identify the object
     var tag = 0
-
-    // type for the form element
-    var type = 0
 
     // title to be shown on left
     var title : String? = null
